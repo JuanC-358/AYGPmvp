@@ -19,6 +19,9 @@ AWS Config will continuously monitor resources for compliance with specified rul
 * Configure an S3 bucket to store configuration snapshots.
 #### Define Config Rules
 * Use managed rules in this case: s3-bucket-encryption-enabled, 
+
+![1](https://github.com/JuanC-358/AYGPmvp/blob/main/assets/1.png)
+
 * Create a rule to validate Ec2 Tags
 1. create a Lambda function with this code to validate the tags.
  ```python
@@ -52,6 +55,12 @@ def lambda_handler(event, context):
     }
 
 ```
+![2](https://github.com/JuanC-358/AYGPmvp/blob/main/assets/2.png)
+
+* Add the new rule in Aws config.
+
+![3](https://github.com/JuanC-358/AYGPmvp/blob/main/assets/3.png)
+
 ### Set Up EventBridge
 EventBridge will trigger actions based on rule compliance events.
 * Specify events from AWS Config indicating resource non-compliance.
@@ -69,6 +78,9 @@ SNS will send notifications about compliance violations.
 1. Create an SNS topic.
 2. Subscribe your email or SMS to receive notifications.
 3. Configure EventBridge to publish compliance events to this SNS topic.
+
+![6](https://github.com/JuanC-358/AYGPmvp/blob/main/assets/6sns.png)
+
 ## Step 3: Develop Remediation Logic with Lambda
 Write Lambda functions to automatically remediate policy violations.
 ### Create a Lambda Function for S3 Bucket Encryption
@@ -96,6 +108,8 @@ def lambda_handler(event, context):
         return f"Error enabling encryption: {str(e)}"
 
 ```
+![4](https://github.com/JuanC-358/AYGPmvp/blob/main/assets/4s3.png)
+
 2. Deploy the function and grant it the required permissions, in this case: s3:PutBucketEncryption.
 ### Create a Lambda Function for EC2 Tagging
 Enforce tagging for EC2 instances:
@@ -119,6 +133,9 @@ def lambda_handler(event, context):
         return f"Error tagging instance: {str(e)}"
 
 ```
+
+![5](https://github.com/JuanC-358/AYGPmvp/blob/main/assets/5ec2.png)
+
 2. Deploy the function.
 
 ## Step 4: Set Up Automated Notifications
@@ -137,6 +154,9 @@ sns.publish(
 )
 
 ```
+![7](https://github.com/JuanC-358/AYGPmvp/blob/main/assets/7.png)
+![8](https://github.com/JuanC-358/AYGPmvp/blob/main/assets/8.png)
+
 ## Step 5: Test the System
 ### Create Non-Compliant Resources
 * Create an S3 bucket without encryption.
