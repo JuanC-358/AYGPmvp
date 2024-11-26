@@ -161,8 +161,11 @@ sns.publish(
 ### Create Non-Compliant Resources
 * Create an S3 bucket without encryption.
 * Launch an EC2 instance without tags.
+![9](https://github.com/JuanC-358/AYGPmvp/blob/main/assets/9.png)
 ### Trigger and Test Remediation
 * Verify that EventBridge triggers Lambda functions for non-compliant resources.
+![10](https://github.com/JuanC-358/AYGPmvp/blob/main/assets/10.png)
+![11](https://github.com/JuanC-358/AYGPmvp/blob/main/assets/11.png)
 * Check that Lambda functions remediate the issues and send notifications via SNS.
 ### Perform Stress Tests
 * Use  AWS Fault Injection Simulator or Locust to simulate large-scale resource creation.
